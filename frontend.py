@@ -8,9 +8,17 @@ import MLP as mlp_backend
 import RNN as rnn_backend
 
 # Workaround to import a file with spaces in the name ('Rotation to yield.py')
-spec = importlib.util.spec_from_file_location("rotation_to_yield", "Rotation to yield.py")
-apsim_backend = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(apsim_backend)
+# APSIM requires .NET runtime, which may not be available on cloud deployments
+apsim_backend = None
+try:
+    spec = importlib.util.spec_from_file_location("rotation_to_yield", "Rotation to yield.py")
+    apsim_backend = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(apsim_backend)
+except RuntimeError as e:
+    if ".NET runtime" in str(e):
+        st.warning("⚠️ APSIM Simulator unavailable (requires .NET runtime). Use MLP/RNN surrogates instead.")
+    else:
+        raise
 
 st.set_page_config(page_title="Crop Rotation Optimizer", layout="wide")
 
@@ -19,9 +27,13 @@ st.markdown("Use Digital Twins (MLP / RNN) or the APSIM Engine to find the optim
 
 # --- SIDEBAR SETTINGS ---
 st.sidebar.header("Configuration")
+engine_options = ["MLP Surrogate", "RNN Surrogate"]
+if apsim_backend is not None:
+    engine_options.append("APSIM Simulator")
+
 engine_choice = st.sidebar.selectbox(
     "Select Prediction Engine:",
-    ("MLP Surrogate", "RNN Surrogate", "APSIM Simulator")
+    engine_options
 )
 
 st.sidebar.markdown("---")
