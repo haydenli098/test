@@ -47,12 +47,10 @@ if engine_choice == "APSIM Simulator":
 # Caching the training step so it only happens ONCE while the app is running
 @st.cache_resource
 def load_mlp():
-    st.toast("Loading MLP Model... Please wait.", icon="⏳")
     return mlp_backend.load_or_train_model()
 
 @st.cache_resource
 def load_rnn():
-    st.toast("Loading RNN Model... Please wait.", icon="⏳")
     return rnn_backend.load_or_train_model()
 
 # --- MAIN DASHBOARD ---
@@ -64,6 +62,7 @@ if st.sidebar.button("Run Optimizer / Simulator", type="primary"):
         try:
             if engine_choice == "MLP Surrogate":
                 # 1. Load/Train Model
+                st.toast("Loading MLP Model... Please wait.", icon="⏳")
                 trained_model, scaler_x, scaler_y = load_mlp()
                 
                 # 2. Fetch Enviro Data
@@ -88,6 +87,7 @@ if st.sidebar.button("Run Optimizer / Simulator", type="primary"):
 
             elif engine_choice == "RNN Surrogate":
                 # 1. Load/Train Model
+                st.toast("Loading RNN Model... Please wait.", icon="⏳")
                 trained_model, scaler_x, scaler_y = load_rnn()
                 
                 # 2. Fetch Enviro Data
