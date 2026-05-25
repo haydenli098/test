@@ -11,8 +11,8 @@ from apsimNGpy.core.apsim import ApsimModel
 # ==========================================
 # 1. CONFIGURATION
 # ==========================================
-BASE_APSIMX = r"c:\Users\flami\Documents\VSCode\ENGG2112\base_simulation.apsimx"
-MAP_CSV = r"c:\Users\flami\Documents\VSCode\ENGG2112\final_dataset.csv"
+BASE_APSIMX = "base_simulation.apsimx"
+MAP_CSV = "final_dataset.csv"
 ROTATION_LENGTH = 5
 
 def get_enviro_data(lat, lon):

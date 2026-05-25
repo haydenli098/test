@@ -16,10 +16,10 @@ import pickle
 # ==========================================
 # 1. CONFIGURATION
 # ==========================================
-DATA_FILE = r'c:\Users\flami\Documents\VSCode\ENGG2112\apsim_training_data2.parquet'
+DATA_FILE = 'apsim_training_data2.parquet'
 AVAILABLE_CROPS = ["Wheat", "Barley", "Canola", "Chickpea", "Oats", "Soybean"]
 ROTATION_LENGTH = 5
-MAP = r'c:\Users\flami\Documents\VSCode\ENGG2112\final_dataset.csv'
+MAP = 'final_dataset.csv'
 
 PRICES = {
     "Oats": 0.33,
